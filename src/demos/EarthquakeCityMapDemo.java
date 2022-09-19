@@ -9,10 +9,11 @@ import de.fhpotsdam.unfolding.data.PointFeature;
 import de.fhpotsdam.unfolding.geo.Location;
 import de.fhpotsdam.unfolding.marker.Marker;
 import de.fhpotsdam.unfolding.marker.SimplePointMarker;
-import de.fhpotsdam.unfolding.providers.Google;
+import de.fhpotsdam.unfolding.providers.Microsoft;
 import de.fhpotsdam.unfolding.utils.MapUtils;
 //Processing library
-import processing.core.PApplet;
+import processing.core.PApplet;   
+//import de.fhpotsdam.unfolding.providers.Microsoft;
 
 /** EarthquakeCityMapDemo
  * An application with an interactive map displaying earthquake data.
@@ -45,7 +46,8 @@ public class EarthquakeCityMapDemo extends PApplet {
 		size(950, 600, OPENGL);
 
 		// Assume online
-		map = new UnfoldingMap(this, 200, 50, 700, 500, new Google.GoogleMapProvider());
+	//	map = new UnfoldingMap(this, 200, 50, 700, 500, new Google.GoogleMapProvider());
+		map = new UnfoldingMap(this, 200, 50, 700, 500, new Microsoft.AerialProvider());
 //		map = new UnfoldingMap(this, 200, 50, 700, 500, new OpenStreetMap.OpenStreetMapProvider() );
 //	    map = new UnfoldingMap(this, 200, 50, 650, 600, new MBTilesMapProvider(mbTilesString));
 
@@ -134,7 +136,7 @@ public class EarthquakeCityMapDemo extends PApplet {
 	    int gray = color(150,150,150);
 	    
 	    for (Marker mk :markers) {
-	    	if ( (int) mk.getProperty("year") > 2000 ) {
+	    	if ( (int) mk.getProperty("year") > 2006 ) {
 	    		mk.setColor(yellow);
 	    	}
 	    	else {
