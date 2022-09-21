@@ -7,7 +7,7 @@ import de.fhpotsdam.unfolding.marker.SimplePointMarker;
 import processing.core.PGraphics;
 
 /** Implements a visual marker for cities on an earthquake map
- * 
+ * @author UC San Diego Intermediate Software Development MOOC team
  * @author Hryhorii-Shtanko
  **/
 // TODO: Change SimplePointMarker to CommonMarker as the very first thing you do 
