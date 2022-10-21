@@ -1,8 +1,6 @@
 package module3;
 
 import java.util.ArrayList;
-//import java.util.Collections;
-//import java.util.Comparator;
 import java.util.List;
 
 //Unfolding libraries
@@ -10,7 +8,7 @@ import de.fhpotsdam.unfolding.UnfoldingMap;
 import de.fhpotsdam.unfolding.data.PointFeature;
 import de.fhpotsdam.unfolding.marker.Marker;
 import de.fhpotsdam.unfolding.marker.SimplePointMarker;
-import de.fhpotsdam.unfolding.providers.Google;
+import de.fhpotsdam.unfolding.providers.Microsoft;
 import de.fhpotsdam.unfolding.utils.MapUtils;
 import parsing.ParseFeed;
 //Processing library
@@ -18,9 +16,8 @@ import processing.core.PApplet;
 
 /**
  * EarthquakeCityMap An application with an interactive map displaying
- * earthquake data. Author: UC San Diego Intermediate Software Development MOOC
- * team
- * 
+ * earthquake data. 
+ * @author UC San Diego Intermediate Software Development MOOC team
  * @author Hryhorii-Shtanko
  **/
 public class EarthquakeCityMap extends PApplet {
@@ -42,11 +39,12 @@ public class EarthquakeCityMap extends PApplet {
 	// feed with magnitude 2.5+ Earthquakes
 	private String earthquakesURL = "https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/2.5_week.atom";
 
+	@Override
 	public void setup() {
 		size(950, 600, OPENGL);
 
-		//map = new UnfoldingMap(this, 200, 50, 700, 500, new Microsoft.AerialProvider());
-		map = new UnfoldingMap(this, 200, 50, 700, 500, new Google.GoogleMapProvider());
+		map = new UnfoldingMap(this, 200, 50, 700, 500, new Microsoft.AerialProvider());
+		//map = new UnfoldingMap(this, 200, 50, 700, 500, new Google.GoogleMapProvider());
 
 		map.zoomToLevel(2);
 		MapUtils.createDefaultEventDispatcher(this, map);
@@ -97,6 +95,7 @@ public class EarthquakeCityMap extends PApplet {
 		return new SimplePointMarker(feature.getLocation());
 	}
 
+	@Override
 	public void draw() {
 		background(10);
 		map.draw();
@@ -107,12 +106,11 @@ public class EarthquakeCityMap extends PApplet {
 
 	private void addKey() {
 
-		// Remember you can use Processing's graphics methods here
 		fill(255);
 		rect(25, 50, 150, 250);
 
 		fill(0);
-		textSize(16);
+		textSize(14);
 		text("Earthquake Key", 40, 80);
 
 		// ellipse for 5.0+ magnitude
@@ -120,7 +118,7 @@ public class EarthquakeCityMap extends PApplet {
 		ellipse(50, 114, 17, 17);
 
 		fill(0);
-		textSize(12);
+		textSize(13);
 		text("5.0+ Magnitude", 70, 120);
 
 		// ellipse for 4.0+ magnitude
@@ -136,7 +134,7 @@ public class EarthquakeCityMap extends PApplet {
 		ellipse(50, 214, 8, 8);
 
 		fill(0);
-		textSize(12);
+		textSize(11);
 		text("Below 4.0", 70, 220);
 	}
 }

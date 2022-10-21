@@ -10,6 +10,7 @@ public class Student extends Person
 		super(name);
 	}
 
+	@Override
 	public boolean isAsleep( int hr ) // override 
 	{ 
 		return 2 < hr && 8 > hr; 
@@ -18,7 +19,7 @@ public class Student extends Person
 	public static void main(String[] args)
 	{
 		Person p;
-		p = new Student("Sally");
+		p = new Student("Gregory");
 		p.status(1);
 	}
 }

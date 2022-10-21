@@ -11,6 +11,7 @@ import processing.core.PImage;
 public class MyPApplet extends PApplet{
 	PImage img;
 	
+	@Override
 	public void setup() {
 		//Add setup code for MyPApplet
 		size(400,400);				//set canvas size
@@ -19,6 +20,7 @@ public class MyPApplet extends PApplet{
 		img = loadImage("palmTrees.jpg", "jpg");
 	}
 	
+	@Override
 	public void draw() {
 		//Add drawing code for MyPApplet
 		img.resize(0, height);			//resize loaded image to full height of canvas
@@ -48,7 +50,7 @@ public class MyPApplet extends PApplet{
 	
 	public static void main (String[] args) {
 		//Add main method for running as application
-		PApplet.main(new String[] {"--present", "MyPApplet"});
+		PApplet.main(new String[] {"~~present", "MyPApplet"});
 	}
 }
 

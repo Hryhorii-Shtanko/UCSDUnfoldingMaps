@@ -20,7 +20,7 @@ import processing.core.PApplet;
  * earthquake data. Author: UC San Diego Intermediate Software Development MOOC
  * team
  * 
- * @author Your name here Date: July 17, 2015
+ * @author Hryhorii-Shtanko
  */
 public class EarthquakeCityMapDemo extends PApplet {
 
@@ -47,6 +47,7 @@ public class EarthquakeCityMapDemo extends PApplet {
 	// feed with magnitude 2.5+ Earthquakes
 	private String earthquakesURL = "https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/2.5_week.atom";
 
+	@Override
 	public void setup() {
 		size(950, 600, OPENGL);
 
@@ -173,6 +174,7 @@ public class EarthquakeCityMapDemo extends PApplet {
 		return new SimplePointMarker(feature.getLocation());
 	}
 
+	@Override
 	public void draw() {
 		background(10);
 		map.draw();
