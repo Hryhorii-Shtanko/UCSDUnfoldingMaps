@@ -11,8 +11,8 @@ import de.fhpotsdam.unfolding.geo.Location;
 import de.fhpotsdam.unfolding.marker.AbstractShapeMarker;
 import de.fhpotsdam.unfolding.marker.Marker;
 import de.fhpotsdam.unfolding.marker.MultiMarker;
-import de.fhpotsdam.unfolding.providers.Google;
 import de.fhpotsdam.unfolding.providers.MBTilesMapProvider;
+import de.fhpotsdam.unfolding.providers.Microsoft;
 import de.fhpotsdam.unfolding.utils.MapUtils;
 import parsing.ParseFeed;
 import processing.core.PApplet;
@@ -64,6 +64,7 @@ public class EarthquakeCityMap extends PApplet {
 	// A List of country markers
 	private List<Marker> countryMarkers;
 
+	@Override
 	public void setup() {
 		// (1) Initializing canvas and map tiles
 		size(900, 700, OPENGL);
@@ -71,10 +72,10 @@ public class EarthquakeCityMap extends PApplet {
 			map = new UnfoldingMap(this, 200, 50, 650, 600, new MBTilesMapProvider(mbTilesString));
 			earthquakesURL = "2.5_week.atom"; // The same feed, but saved August 7, 2015
 		} else {
-			map = new UnfoldingMap(this, 200, 50, 650, 600, new Google.GoogleMapProvider());
-			// map = new UnfoldingMap(this, 200, 50, 700, 500, new
-			// Microsoft.AerialProvider());
-
+			//map = new UnfoldingMap(this, 200, 50, 650, 600, new Google.GoogleMapProvider());
+			map = new UnfoldingMap(this, 200, 50, 700, 500, new Microsoft.AerialProvider());
+			// IF YOU WANT TO TEST WITH A LOCAL FILE, uncomment the next line
+		    //earthquakesURL = "2.5_week.atom";
 		}
 		MapUtils.createDefaultEventDispatcher(this, map);
 
@@ -115,16 +116,15 @@ public class EarthquakeCityMap extends PApplet {
 		}
 
 		// could be used for debugging
-		printQuakes();
+		//printQuakes();
 
-		// (3) Add markers to map
-		// NOTE: Country markers are not added to the map. They are used
-		// for their geometric properties
+		
 		map.addMarkers(quakeMarkers);
 		map.addMarkers(cityMarkers);
 
-	} // End setup
+	} 
 
+	@Override
 	public void draw() {
 		background(0);
 		map.draw();
@@ -133,15 +133,13 @@ public class EarthquakeCityMap extends PApplet {
 	}
 
 	// helper method to draw key in GUI
-	// TODO: Update this method as appropriate
 	private void addKey() {
-		// Remember you can use Processing's graphics methods here
 		fill(255, 250, 240);
 		rect(25, 50, 150, 250);
 
 		fill(0);
 		textAlign(LEFT, CENTER);
-		textSize(12);
+		textSize(13);
 		text("Earthquake Key", 50, 75);
 		text("Size - Magnitude", 50, 170);
 
