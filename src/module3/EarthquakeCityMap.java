@@ -18,7 +18,8 @@ import processing.core.PApplet;
 
 /**
  * EarthquakeCityMap An application with an interactive map displaying
- * earthquake data. 
+ * earthquake data.
+ * 
  * @author UC San Diego Intermediate Software Development MOOC team
  * @author Hryhorii-Shtanko
  **/
@@ -46,11 +47,12 @@ public class EarthquakeCityMap extends PApplet {
 		size(950, 600, OPENGL);
 
 		map = new UnfoldingMap(this, 200, 50, 700, 500, new Microsoft.AerialProvider());
-		//map = new UnfoldingMap(this, 200, 50, 700, 500, new Google.GoogleMapProvider());
+		// map = new UnfoldingMap(this, 200, 50, 700, 500, new
+		// Google.GoogleMapProvider());
 
 		map.zoomToLevel(2);
 		MapUtils.createDefaultEventDispatcher(this, map);
-	    // The List you will populate with new SimplePointMarkers
+		// The List you will populate with new SimplePointMarkers
 		List<Marker> markers = new ArrayList<Marker>();
 		// Use provided parser to collect properties for each earthquake
 		// PointFeatures have a getLocation method

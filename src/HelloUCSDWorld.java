@@ -6,12 +6,14 @@ import processing.core.PApplet;
 
 /**
  * Hello World!
+ * 
  * @author Hryhorii-Shtanko
  */
 public class HelloUCSDWorld extends PApplet {
 
 	UnfoldingMap map;
 
+	@Override
 	public void setup() {
 		size(800, 600, OPENGL);
 
@@ -21,6 +23,7 @@ public class HelloUCSDWorld extends PApplet {
 		MapUtils.createDefaultEventDispatcher(this, map);
 	}
 
+	@Override
 	public void draw() {
 		background(0);
 		map.draw();

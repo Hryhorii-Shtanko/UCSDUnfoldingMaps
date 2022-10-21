@@ -5,7 +5,7 @@ import processing.core.PApplet;
 
 /**
  * This example uses a local MBTiles file. Thus, it does not need an Internet
- * connection to load tiles.
+ * connection to load tiles. 
  * @author Hryhorii-Shtanko
  */
 public class OfflineMapApp extends PApplet {
@@ -14,6 +14,7 @@ public class OfflineMapApp extends PApplet {
 
 	UnfoldingMap map;
 
+	@Override
 	public void setup() {
 		size(800, 600, OPENGL);
 
@@ -22,6 +23,7 @@ public class OfflineMapApp extends PApplet {
 		map.setZoomRange(1, 3);
 	}
 
+	@Override
 	public void draw() {
 		background(0);
 		map.draw();
