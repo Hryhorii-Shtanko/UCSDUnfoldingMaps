@@ -8,8 +8,9 @@ import processing.core.PGraphics;
 
 /** Implements a visual marker for cities on an earthquake map
  * 
- * @author Hryhorii-Shtanko
- **/
+ * @author UC San Diego Intermediate Software Development MOOC team
+ * @author Hryhorii-Shtanko 
+ */
 public class CityMarker extends CommonMarker {
 	
 	public static int TRI_SIZE = 5;  // The size of the triangle marker
@@ -36,6 +37,7 @@ public class CityMarker extends CommonMarker {
 	/**
 	 * Implementation of method to draw marker on the map.
 	 */
+	@Override
 	public void drawMarker(PGraphics pg, float x, float y) {
 		//System.out.println("Drawing a city");
 		// Save previous drawing style
@@ -50,6 +52,7 @@ public class CityMarker extends CommonMarker {
 	}
 	
 	/** Show the title of the city if this marker is selected */
+	@Override
 	public void showTitle(PGraphics pg, float x, float y)
 	{
 		String name = getCity() + " " + getCountry() + " ";

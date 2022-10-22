@@ -11,6 +11,7 @@ import processing.core.PApplet;
 /**
  * HelloWorld An application with two maps side-by-side zoomed in on different
  * locations.
+ * 
  * @author Hryhorii-Shtanko
  */
 public class HelloWorld extends PApplet {
@@ -38,6 +39,7 @@ public class HelloWorld extends PApplet {
 	/** The map you will use to display your home town */
 	UnfoldingMap map2;
 
+	@Override
 	public void setup() {
 		size(800, 600, P2D); // Set up the Applet window to be 800x600
 								// The OPENGL argument indicates to use the
@@ -89,6 +91,7 @@ public class HelloWorld extends PApplet {
 	}
 
 	/** Draw the Applet window. */
+	@Override
 	public void draw() {
 		// So far we only draw map1...
 		// TODO: Add code so that both maps are displayed

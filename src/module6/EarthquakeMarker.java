@@ -6,10 +6,11 @@ import processing.core.PGraphics;
 
 /** Implements a visual marker for earthquakes on an earthquake map
  * 
+ * @author UC San Diego Intermediate Software Development MOOC team
  * @author Hryhorii-Shtanko
- **/
-// TODO: Implement the comparable interface
-public abstract class EarthquakeMarker extends CommonMarker
+ */
+
+public abstract class EarthquakeMarker extends CommonMarker implements Comparable<EarthquakeMarker> 
 {
 	
 	// Did the earthquake occur on land?  This will be set by the subclasses.
@@ -54,8 +55,16 @@ public abstract class EarthquakeMarker extends CommonMarker
 		this.radius = 1.75f*getMagnitude();
 	}
 	
-	// TODO: Add the method:
-	// public int compareTo(EarthquakeMarker marker)
+	@Override
+	public int compareTo(EarthquakeMarker marker){
+		if (this.getMagnitude() <  marker.getMagnitude()){
+			return 1;
+		}else if (this.getMagnitude() == marker.getMagnitude()){
+			return 0;
+		}else{
+			return -1;
+		}
+	}
 	
 	
 	// calls abstract method drawEarthquake and then checks age and draws X if needed
@@ -93,6 +102,7 @@ public abstract class EarthquakeMarker extends CommonMarker
 	}
 
 	/** Show the title of the earthquake if this marker is selected */
+	@Override
 	public void showTitle(PGraphics pg, float x, float y)
 	{
 		String title = getTitle();
@@ -148,6 +158,7 @@ public abstract class EarthquakeMarker extends CommonMarker
 	 * Returns an earthquake marker's string representation
 	 * @return the string representation of an earthquake marker.
 	 */
+	@Override
 	public String toString()
 	{
 		return getTitle();

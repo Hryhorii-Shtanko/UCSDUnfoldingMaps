@@ -16,14 +16,17 @@ import processing.core.PApplet;
 
 /** An applet that shows airports (and routes)
  * on a world map.  
+ * @author UC San Diego Intermediate Software Development MOOC team
  * @author Hryhorii-Shtanko
- **/
+ *
+ */
 public class AirportMap extends PApplet {
 	
 	UnfoldingMap map;
 	private List<Marker> airportList;
 	List<Marker> routeList;
 	
+	@Override
 	public void setup() {
 		// setting up PAppler
 		size(800,600, OPENGL);
@@ -84,6 +87,7 @@ public class AirportMap extends PApplet {
 		
 	}
 	
+	@Override
 	public void draw() {
 		background(0);
 		map.draw();
