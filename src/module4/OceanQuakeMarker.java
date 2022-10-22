@@ -24,10 +24,8 @@ public class OceanQuakeMarker extends EarthquakeMarker {
 		// class to indicate the depth of the earthquake.
 		// Simply draw a centered square.
 
-		// TODO: Implement this method
 		pg.rectMode(PConstants.CENTER);
 		pg.rect(x, y, setMarkerSize(), setMarkerSize());
-
 	}
 
 }

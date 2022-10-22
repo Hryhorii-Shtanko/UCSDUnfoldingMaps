@@ -8,9 +8,20 @@ import processing.core.PGraphics;
  * Implements a visual marker for earthquakes on an earthquake map
  * @author Hryhorii-Shtanko
  **/
+
+// constructor
 public abstract class EarthquakeMarker extends SimplePointMarker {
 
+	// Did the earthquake occur on land? This will be set by the subclasses.
 	protected boolean isOnLand;
+
+	// SimplePointMarker has a field "radius" which is inherited
+	// by Earthquake marker:
+	// protected float radius;
+	//
+	// You will want to set this in the constructor, either
+	// using the thresholds below, or a continuous function
+	// based on magnitude.
 
 	/** Greater than or equal to this threshold is a moderate earthquake */
 	public static final float THRESHOLD_MODERATE = 5;
@@ -22,6 +33,7 @@ public abstract class EarthquakeMarker extends SimplePointMarker {
 	/** Greater than or equal to this threshold is a deep depth */
 	public static final float THRESHOLD_DEEP = 300;
 
+	// ADD constants for colors
 	public static final float RED_COLOR = 255;
 	public static final float GREEN_COLOR = 255;
 	public static final float BLUE_COLOR = 255;
@@ -53,6 +65,7 @@ public abstract class EarthquakeMarker extends SimplePointMarker {
 		// call abstract method implemented in child class to draw marker shape
 		drawEarthquake(pg, x, y);
 
+		// OPTIONAL TODO: draw X over marker if within past day
 		String age = getStringProperty("age");
 		if (age.equals("Past Day")) {
 			pg.stroke(0);
@@ -60,18 +73,15 @@ public abstract class EarthquakeMarker extends SimplePointMarker {
 			pg.line(x + radius, y - radius, x - radius, y + radius);
 			pg.line(x - radius, y - radius, x + radius, y + radius);
 		}
-
 		// reset to previous styling
 		pg.popStyle();
 
 	}
 
-	// determine color of marker from depth, and set pg's fill color
-	// using the pg.fill method.
+	// determine color of marker from depth
 	// We suggest: Deep = red, intermediate = blue, shallow = yellow
 	// But this is up to you, of course.
 	// You might find the getters below helpful.
-
 	private void colorDetermine(PGraphics pg) {
 		// TODO: Implement this method
 		if (getDepth() > 0 && getDepth() <= THRESHOLD_INTERMEDIATE) { // shallow quakes
@@ -86,6 +96,10 @@ public abstract class EarthquakeMarker extends SimplePointMarker {
 	public float setMarkerSize() {
 		return getRadius() + getMagnitude();
 	}
+
+	/*
+	 * getters for earthquake properties
+	 */
 
 	public float getMagnitude() {
 		return Float.parseFloat(getProperty("magnitude").toString());
