@@ -11,11 +11,11 @@ import de.fhpotsdam.unfolding.geo.Location;
 import de.fhpotsdam.unfolding.marker.AbstractShapeMarker;
 import de.fhpotsdam.unfolding.marker.Marker;
 import de.fhpotsdam.unfolding.marker.MultiMarker;
-import de.fhpotsdam.unfolding.providers.Google;
+import de.fhpotsdam.unfolding.providers.MBTilesMapProvider;
+import de.fhpotsdam.unfolding.providers.Microsoft;
 import de.fhpotsdam.unfolding.utils.MapUtils;
 import parsing.ParseFeed;
 import processing.core.PApplet;
-import processing.core.PGraphics;
 
 /** EarthquakeCityMap
  * An application with an interactive map displaying earthquake data.
@@ -34,7 +34,7 @@ public class EarthquakeCityMap extends PApplet {
 	private static final long serialVersionUID = 1L;
 
 	// IF YOU ARE WORKING OFFILINE, change the value of this variable to true
-	//private static final boolean offline = false;
+	private static final boolean offline = false;
 	
 	/** This is where to find the local tiles, for working without an Internet connection */
 	public static String mbTilesString = "blankLight-1-3.mbtiles";
@@ -61,26 +61,23 @@ public class EarthquakeCityMap extends PApplet {
 	private CommonMarker lastSelected;
 	private CommonMarker lastClicked;
 	
-	private PGraphics buffer;
-	
 	@Override
 	public void setup() {		
 		// (1) Initializing canvas and map tiles
 		size(900, 700, OPENGL);
-		
-		/*
-		 * if (offline) { map = new UnfoldingMap(this, 200, 50, 650, 600, new
-		 * MBTilesMapProvider(mbTilesString)); earthquakesURL = "2.5_week.atom"; } else
-		 */
-		 
-			//map = new UnfoldingMap(this, 200, 50, 700, 500, new Microsoft.AerialProvider());
+		if (offline) {
+		    map = new UnfoldingMap(this, 200, 50, 650, 600, new MBTilesMapProvider(mbTilesString));
+		    earthquakesURL = "2.5_week.atom";  // The same feed, but saved August 7, 2015
+		}
+		else {
+			map = new UnfoldingMap(this, 200, 50, 700, 500, new Microsoft.AerialProvider());
 
-			map = new UnfoldingMap(this, 200, 50, 650, 600, new Google.GoogleMapProvider());
+		//	map = new UnfoldingMap(this, 200, 50, 650, 600, new Google.GoogleMapProvider());
 			// IF YOU WANT TO TEST WITH A LOCAL FILE, uncomment the next line
-		   // earthquakesURL = "2.5_week.atom";
-		
+		    //earthquakesURL = "2.5_week.atom";
+		}
 		MapUtils.createDefaultEventDispatcher(this, map);
-	
+		
 		
 		// (2) Reading in earthquake data and geometric properties
 	    //     STEP 1: load country features and markers
@@ -110,7 +107,7 @@ public class EarthquakeCityMap extends PApplet {
 	    }
 
 	    // could be used for debugging
-	 printQuakes();
+	    printQuakes();
 	 		
 	    // (3) Add markers to map
 	    //     NOTE: Country markers are not added to the map.  They are used
@@ -125,14 +122,13 @@ public class EarthquakeCityMap extends PApplet {
 	public void draw() {
 		background(0);
 		map.draw();
-		buffer.endDraw();
-		image(buffer, 0, 0);
 		addKey();
-		buffer.clear();
-		if(lastSelected != null) {
-			lastSelected.drawTitleOnTop(buffer, mouseX, mouseY);
-		}
+		
 	}
+	
+	/** Event handler that gets called automatically when the 
+	 * mouse moves.
+	 */
 	@Override
 	public void mouseMoved()
 	{
@@ -152,15 +148,8 @@ public class EarthquakeCityMap extends PApplet {
 	// 
 	private void selectMarkerIfHover(List<Marker> markers)
 	{
-		for(Marker marker : markers) {
-			if(marker.isInside(map, mouseX, mouseY) && lastSelected == null) {
-				lastSelected = (CommonMarker) marker;
-				lastSelected.setSelected(true);
-				break;
-			}
-		}
+		// TODO: Implement this method
 	}
-	
 	
 	/** The event handler for mouse clicks
 	 * It will display an earthquake and its threat circle of cities
@@ -170,77 +159,22 @@ public class EarthquakeCityMap extends PApplet {
 	@Override
 	public void mouseClicked()
 	{
-		if(lastClicked != null) {
-			lastClicked.setClicked(false);
-			lastClicked = null;
-			unhideMarkers();
-		} else {
-			checkMarkersForClick(quakeMarkers);
-			checkMarkersForClick(cityMarkers);
-			if(lastClicked instanceof EarthquakeMarker) {
-				hideOtherMarkers(quakeMarkers);
-				hideCityMarkers(cityMarkers);
-//			} else if(lastClicked instanceof CityMarker) {
-//				hideOtherMarkers(cityMarkers);
-//				hideQuakeMarkers(quakeMarkers);
-			}
-		}
+		// TODO: Implement this method
+		// Hint: You probably want a helper method or two to keep this code
+		// from getting too long/disorganized
 	}
 	
-	//Hide city markers if outside threat circle
-		private void hideCityMarkers(List<Marker> cities) {
-			for(Marker city : cities) {
-				if(city.getDistanceTo(lastClicked.getLocation()) > ((EarthquakeMarker) lastClicked).threatCircle()) {
-					city.setHidden(true);
-					
-				} else { 
-					city.setHidden(false);
-				}
-			}
-		}
 	
-		
-		/*
-		 * private void hideQuakeMarkers(List<Marker> earthquakes) { for(Marker
-		 * earthquake : earthquakes) {
-		 * if(earthquake.getDistanceTo(lastClicked.getLocation()) > ((EarthquakeMarker)
-		 * earthquake).threatCircle()) { earthquake.setHidden(true); } else {
-		 * earthquake.setHidden(false); } } }
-		 */
-		
-		//Hide other markers except the one that has been clicked
-		private void hideOtherMarkers(List<Marker> markers) {
-			for(Marker marker : markers) {
-				if(marker != lastClicked) {
-					marker.setHidden(true);
-				}
-			}
-		} 
-		
-		//checks if a marker has been clicked
-		private void checkMarkersForClick(List<Marker> markers) {
-			// TODO Auto-generated method stub
-			for(Marker marker : markers) {
-				if(lastClicked != null) {
-					break;
-				}
-				if(!marker.isHidden() && marker.isInside(map, mouseX, mouseY)) {
-					lastClicked = (CommonMarker) marker;
-					lastClicked.setClicked(true);
-					break;
-				}
-			}
+	// loop over and unhide all markers
+	private void unhideMarkers() {
+		for(Marker marker : quakeMarkers) {
+			marker.setHidden(false);
 		}
-		// loop over and unhide all markers
-		private void unhideMarkers() {
-			for(Marker marker : quakeMarkers) {
-				marker.setHidden(false);
-			}
-				
-			for(Marker marker : cityMarkers) {
-				marker.setHidden(false);
-			}
+			
+		for(Marker marker : cityMarkers) {
+			marker.setHidden(false);
 		}
+	}
 	
 	// helper method to draw key in GUI
 	private void addKey() {	

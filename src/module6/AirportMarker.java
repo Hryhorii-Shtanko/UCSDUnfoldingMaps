@@ -10,8 +10,10 @@ import processing.core.PGraphics;
 /** 
  * A class to represent AirportMarkers on a world map.
  *   
+ * @author UC San Diego Intermediate Software Development MOOC team
  * @author Hryhorii-Shtanko
- **/
+ *
+ */
 public class AirportMarker extends CommonMarker {
 	public static List<SimpleLinesMarker> routes;
 	
